@@ -1,9 +1,13 @@
 target
+target/
 
 .idea
+.idea/
 .mvn
 *.iml
 
 .settings
 .classpath
 .project
+src/main/resources/
+src/test/
