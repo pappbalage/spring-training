@@ -17,4 +17,8 @@ public class EmployeeDao {
     public List<String> getEmployees() {
         return new ArrayList<>(employees);  //Collections.unmodifiableList másik lehetöség
     }
+
+    public void emptyEmployees() {
+        employees.clear();
+    }
 }
