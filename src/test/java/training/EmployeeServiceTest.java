@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
@@ -31,5 +32,6 @@ public class EmployeeServiceTest {
 
         verify(dao).saveEmployee(eq("JB"));
         verify(dao, never()).getEmployees();
+        assertDoesNotThrow(() -> service.saveEmployee("Jb"));
     }
 }
