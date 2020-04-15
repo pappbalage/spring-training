@@ -1,5 +1,6 @@
 package training;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -9,8 +10,11 @@ public class EmployeeService {
 
     private final EmployeeDao employeeDao;
 
-    public EmployeeService(EmployeeDao employeeDao) {
+    private final ApplicationEventPublisher pub;
+
+    public EmployeeService(EmployeeDao employeeDao, ApplicationEventPublisher pub) {
         this.employeeDao = employeeDao;
+        this.pub = pub;
     }
 
     public void saveEmployee(String name) {
@@ -21,6 +25,8 @@ public class EmployeeService {
         var upperCase = name.toUpperCase();
 
         employeeDao.saveEmployee(upperCase);
+
+        pub.publishEvent(new EmployeeWasCreatedEvent(this, name));
     }
 
     @PostConstruct

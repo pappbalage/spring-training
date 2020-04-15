@@ -25,8 +25,9 @@ public class EmployeeServiceIntegrationTest {
     @Test
     public void testSave() {
         service.saveEmployee("jb");
+        service.saveEmployee("hb");
         List<String> names = dao.getEmployees();
-        assertEquals(List.of("JB"), names);
+        assertEquals(List.of("JB", "HB"), names);
 
     }
 
