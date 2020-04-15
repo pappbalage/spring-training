@@ -1,8 +1,13 @@
 package training;
 
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+
+@Service
 public class EmployeeService {
 
-    private EmployeeDao employeeDao;
+    private final EmployeeDao employeeDao;
 
     public EmployeeService(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
@@ -16,5 +21,10 @@ public class EmployeeService {
         var upperCase = name.toUpperCase();
 
         employeeDao.saveEmployee(upperCase);
+    }
+
+    @PostConstruct
+    public void initMsg() {
+        System.out.println("Service created");
     }
 }
