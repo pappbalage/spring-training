@@ -1,5 +1,6 @@
 package training;
 
+import org.flywaydb.core.internal.jdbc.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -18,6 +19,8 @@ public class EmployeeDao {
     private AtomicLong sequence = new AtomicLong();
 
     private DataSource dataSource;
+
+    private JdbcTemplate jdbcTemplate;
 
     public EmployeeDao(DataSource dataSource) {
         this.dataSource = dataSource;

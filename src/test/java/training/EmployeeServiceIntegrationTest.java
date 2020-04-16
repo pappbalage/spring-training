@@ -2,6 +2,7 @@ package training;
 
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ContextConfiguration(classes = EmployeeConfig.class)
 @Sql(statements = "delete from employees")
 public class EmployeeServiceIntegrationTest {
-
-    @Autowired
-    private EmployeeDao dao;
 
     @Autowired
     private EmployeeService service;
@@ -56,7 +54,7 @@ public class EmployeeServiceIntegrationTest {
         assertEquals(0, employees.size());
     }
 
-    @BeforeEach
+    @Disabled
     public void clearEmployees() {
         service.emptyEmployees();
     }
