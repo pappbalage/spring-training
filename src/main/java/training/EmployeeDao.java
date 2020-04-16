@@ -2,6 +2,8 @@ package training;
 
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,9 +17,24 @@ public class EmployeeDao {
 
     private AtomicLong sequence = new AtomicLong();
 
+    private DataSource dataSource;
+
+    public EmployeeDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public Employee saveEmployee(String name) {
         var employee = new Employee(sequence.getAndIncrement(), name);
         employees.add(employee);
+
+        try (var conn = dataSource.getConnection();
+             var ps = conn.prepareStatement("insert into employees(emp_name) values (?)")) {
+            ps.setString(1, name);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new IllegalStateException("Cannot insert", e);
+        }
         return employee;
     }
 
