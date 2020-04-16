@@ -1,4 +1,4 @@
-package training;
+package training.backend;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackageClasses = EmployeeConfig.class)
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories

@@ -1,4 +1,4 @@
-package training;
+package training.backend;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

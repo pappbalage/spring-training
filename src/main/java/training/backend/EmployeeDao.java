@@ -1,4 +1,4 @@
-package training;
+package training.backend;
 
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
 import org.springframework.stereotype.Repository;
