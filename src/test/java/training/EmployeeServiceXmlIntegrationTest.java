@@ -1,5 +1,6 @@
 package training;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,4 @@ public class EmployeeServiceXmlIntegrationTest {
     @Autowired
     private EmployeeService service;
 
-    @Test
-    public void testSave() {
-        service.saveEmployee("jb");
-        List<String> names = dao.getEmployees();
-        assertEquals(List.of("JB"), names);
-
-    }
 }

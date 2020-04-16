@@ -3,6 +3,7 @@ package training;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,6 +14,6 @@ public class EmployeeDaoTest {
         var dao = new EmployeeDao();
         dao.saveEmployee("JB");
 
-        assertEquals(List.of("JB"), dao.getEmployees());
+        assertEquals(List.of("JB"), dao.getEmployees().stream().map(Employee::getName).collect(Collectors.toList()));
     }
 }

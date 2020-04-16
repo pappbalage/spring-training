@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -29,32 +30,49 @@ public class EmployeeService {
         this.uppercaseEnabled = uppercaseEnabled;
     }
 
-    public void saveEmployee(String name) {
-        if(name == null || name.isBlank()) {
+    public Employee saveEmployee(String name) {
+        log.info("Save employee");
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name can not be empty");
         }
 
-        String changedName;
-        if(Boolean.parseBoolean(env.getProperty("uppercase.enabled"))) {
-            changedName = name.toUpperCase();
-        } else {
-            changedName = name;
-        }
 
-        if(uppercaseEnabled) {
-            log.info("Hello");
-        }
-
-        //var upperCase = name.toUpperCase();
-
-        employeeDao.saveEmployee(changedName);
-        log.info("employee saved: " + changedName);
-
+        var employee = employeeDao.saveEmployee(convertName(name));
         pub.publishEvent(new EmployeeWasCreatedEvent(this, name));
+        return employee;
     }
 
     @PostConstruct
     public void initMsg() {
         log.info("Service created");
+    }
+
+    public List<Employee> listEmployees() {
+        return employeeDao.getEmployees();
+    }
+
+    public Employee findEmployeeById(long id) {
+        return employeeDao.findEmployeeById(id);
+    }
+
+    public Employee updateEmployee(long id, String name) {
+        return employeeDao.updateEmployee(id, convertName(name));
+    }
+
+    private String convertName(String name) {
+        if (uppercaseEnabled) {
+            return name.toUpperCase();
+        }
+        else {
+            return name;
+        }
+    }
+
+    public void deleteEmployee(long id) {
+        employeeDao.deleteEmployee(id);
+    }
+
+    public void emptyEmployees() {
+        employeeDao.emptyEmployees();
     }
 }

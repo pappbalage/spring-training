@@ -41,7 +41,6 @@ public class EmployeeServiceTest {
     @Test
     public void testSaveEmployee() {
 
-        when(env.getProperty(anyString())).thenReturn("true");
         service.saveEmployee("Jb");
 
         verify(dao).saveEmployee(eq("JB"));
